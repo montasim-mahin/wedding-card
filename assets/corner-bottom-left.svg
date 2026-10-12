@@ -1,0 +1,113 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" fill="none">
+  <defs>
+    <!-- Multi-Tone Hydrangea Petal Gradients -->
+    <radialGradient id="bl_hNavy" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#4a95db"/>
+      <stop offset="65%" stop-color="#185998"/>
+      <stop offset="100%" stop-color="#0e345c"/>
+    </radialGradient>
+    <radialGradient id="bl_hBlue1" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#9dd0fb"/>
+      <stop offset="55%" stop-color="#3b8fe0"/>
+      <stop offset="100%" stop-color="#175ea5"/>
+    </radialGradient>
+    <radialGradient id="bl_hBlue2" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#e3f3ff"/>
+      <stop offset="45%" stop-color="#80c1fa"/>
+      <stop offset="100%" stop-color="#3283d4"/>
+    </radialGradient>
+    <radialGradient id="bl_hBlue3" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#b6defd"/>
+      <stop offset="100%" stop-color="#559ee7"/>
+    </radialGradient>
+
+    <!-- Watercolor Foliage Gradients -->
+    <linearGradient id="bl_leafDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9cdab8"/>
+      <stop offset="55%" stop-color="#419369"/>
+      <stop offset="100%" stop-color="#1b5b38"/>
+    </linearGradient>
+    <linearGradient id="bl_leafSoft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cdeee0"/>
+      <stop offset="60%" stop-color="#6bb891"/>
+      <stop offset="100%" stop-color="#2d754e"/>
+    </linearGradient>
+
+    <!-- Drop Shadow Filter for Painted Depth -->
+    <filter id="bl_shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="2" dy="4" stdDeviation="5" flood-color="#123b63" flood-opacity="0.12"/>
+    </filter>
+
+    <!-- Single 4-Petal Floret Template -->
+    <g id="bl_floretDeep">
+      <path d="M0 0 C -5 -5, -8 -16, 0 -20 C 8 -16, 5 -5, 0 0 Z" fill="url(#bl_hNavy)"/>
+      <path d="M0 0 C 5 -5, 16 -8, 20 0 C 16 8, 5 5, 0 0 Z" fill="url(#bl_hBlue1)"/>
+      <path d="M0 0 C 5 5, 8 16, 0 20 C -8 16, -5 5, 0 0 Z" fill="url(#bl_hNavy)"/>
+      <path d="M0 0 C -5 5, -16 8, -20 0 C -16 -8, -5 -5, 0 0 Z" fill="url(#bl_hBlue1)"/>
+      <circle cx="0" cy="0" r="2.4" fill="#ffffff" opacity="0.95"/>
+      <circle cx="0" cy="0" r="1.1" fill="#e0a030"/>
+    </g>
+
+    <g id="bl_floretMid">
+      <path d="M0 0 C -5 -5, -8 -16, 0 -20 C 8 -16, 5 -5, 0 0 Z" fill="url(#bl_hBlue1)"/>
+      <path d="M0 0 C 5 -5, 16 -8, 20 0 C 16 8, 5 5, 0 0 Z" fill="url(#bl_hBlue2)"/>
+      <path d="M0 0 C 5 5, 8 16, 0 20 C -8 16, -5 5, 0 0 Z" fill="url(#bl_hBlue1)"/>
+      <path d="M0 0 C -5 5, -16 8, -20 0 C -16 -8, -5 -5, 0 0 Z" fill="url(#bl_hBlue2)"/>
+      <circle cx="0" cy="0" r="2.2" fill="#ffffff" opacity="0.95"/>
+      <circle cx="0" cy="0" r="1" fill="#3283d4"/>
+    </g>
+
+    <g id="bl_floretLight">
+      <path d="M0 0 C -5 -5, -8 -15, 0 -19 C 8 -15, 5 -5, 0 0 Z" fill="url(#bl_hBlue2)"/>
+      <path d="M0 0 C 5 -5, 15 -8, 19 0 C 15 8, 5 5, 0 0 Z" fill="url(#bl_hBlue3)"/>
+      <path d="M0 0 C 5 5, 8 15, 0 19 C -8 15, -5 5, 0 0 Z" fill="url(#bl_hBlue2)"/>
+      <path d="M0 0 C -5 5, -15 8, -19 0 C -15 -8, -5 -5, 0 0 Z" fill="url(#bl_hBlue3)"/>
+      <circle cx="0" cy="0" r="2.3" fill="#ffffff" opacity="0.98"/>
+      <circle cx="0" cy="0" r="1" fill="#e8af3c"/>
+    </g>
+  </defs>
+
+  <g filter="url(#bl_shadow)">
+    <!-- 1. Background Eucalyptus Leaves -->
+    <path d="M 0 45 C 50 15, 130 18, 195 40 C 150 70, 75 70, 0 45 Z" fill="url(#bl_leafDeep)" opacity="0.85"/>
+    <path d="M 45 0 C 15 50, 18 130, 40 195 C 70 150, 70 75, 45 0 Z" fill="url(#bl_leafSoft)" opacity="0.82"/>
+    <path d="M 30 30 C 80 80, 150 125, 185 170 C 140 160, 90 120, 30 30 Z" fill="url(#bl_leafDeep)" opacity="0.8"/>
+    
+    <!-- Small Leaf Sprigs -->
+    <path d="M 120 40 Q 155 35 175 55 Q 145 65 120 40 Z" fill="url(#bl_leafSoft)" opacity="0.9"/>
+    <path d="M 40 120 Q 35 155 55 175 Q 65 145 40 120 Z" fill="url(#bl_leafDeep)" opacity="0.9"/>
+
+    <!-- 2. Base Layer Hydrangea Florets (Deep Blues) -->
+    <use href="#bl_floretDeep" x="35" y="35" transform="rotate(10, 35, 35) scale(1.05)"/>
+    <use href="#bl_floretDeep" x="80" y="30" transform="rotate(-15, 80, 30) scale(0.95)"/>
+    <use href="#bl_floretDeep" x="30" y="80" transform="rotate(25, 30, 80) scale(0.95)"/>
+    <use href="#bl_floretDeep" x="115" y="45" transform="rotate(35, 115, 45) scale(0.85)"/>
+    <use href="#bl_floretDeep" x="45" y="115" transform="rotate(-20, 45, 115) scale(0.85)"/>
+    <use href="#bl_floretDeep" x="90" y="85" transform="rotate(40, 90, 85) scale(0.9)"/>
+
+    <!-- 3. Mid Layer Hydrangea Florets (Classic Baby Blue) -->
+    <use href="#bl_floretMid" x="55" y="55" transform="rotate(22, 55, 55) scale(1.1)"/>
+    <use href="#bl_floretMid" x="95" y="50" transform="rotate(-8, 95, 50) scale(1.0)"/>
+    <use href="#bl_floretMid" x="50" y="95" transform="rotate(18, 50, 95) scale(1.0)"/>
+    <use href="#bl_floretMid" x="135" y="60" transform="rotate(-30, 135, 60) scale(0.8)"/>
+    <use href="#bl_floretMid" x="60" y="135" transform="rotate(45, 60, 135) scale(0.8)"/>
+    <use href="#bl_floretMid" x="110" y="95" transform="rotate(12, 110, 95) scale(0.88)"/>
+    <use href="#bl_floretMid" x="95" y="110" transform="rotate(-25, 95, 110) scale(0.88)"/>
+
+    <!-- 4. Top Highlight Florets (Powder Blue & White) -->
+    <use href="#bl_floretLight" x="72" y="72" transform="rotate(-12, 72, 72) scale(1.12)"/>
+    <use href="#bl_floretLight" x="115" y="70" transform="rotate(28, 115, 70) scale(0.95)"/>
+    <use href="#bl_floretLight" x="70" y="115" transform="rotate(-35, 70, 115) scale(0.95)"/>
+    <use href="#bl_floretLight" x="145" y="80" transform="rotate(15, 145, 80) scale(0.75)"/>
+    <use href="#bl_floretLight" x="80" y="145" transform="rotate(-15, 80, 145) scale(0.75)"/>
+
+    <!-- 5. Floating Baby Blue Petals -->
+    <path d="M 175 60 C 182 52, 192 56, 190 68 C 180 75, 170 70, 175 60 Z" fill="url(#bl_hBlue2)" opacity="0.9"/>
+    <path d="M 160 105 C 168 98, 178 102, 175 112 C 165 118, 155 114, 160 105 Z" fill="url(#bl_hBlue1)" opacity="0.85"/>
+    <path d="M 115 155 C 122 148, 132 152, 130 162 C 120 168, 110 164, 115 155 Z" fill="url(#bl_hBlue3)" opacity="0.9"/>
+    <path d="M 60 175 C 68 168, 78 172, 75 182 C 65 188, 55 184, 60 175 Z" fill="url(#bl_hBlue2)" opacity="0.85"/>
+    <path d="M 140 135 C 146 130, 154 133, 152 140 C 144 145, 136 142, 140 135 Z" fill="url(#bl_hBlue1)" opacity="0.8"/>
+  </g>
+</svg>
+
