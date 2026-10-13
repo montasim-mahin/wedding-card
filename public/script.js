@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3. Initialize Share & Copy Handlers
   initShareHandlers();
-
-  // 4. Background Music (Soft Romantic Melody Generator via Web Audio API)
-  initMusicPlayer();
 });
 
 /* ==========================================
@@ -122,11 +119,18 @@ function initShareHandlers() {
   };
 
   const getShareData = () => {
-    const currentUrl = window.location.href;
-    const title = 'The Wedding of Joy & Rimi';
-    const text = `You are cordially invited to celebrate the wedding ceremony of Joy & Rimi on Friday, 11 December 2026 at 12:00 PM at Shanai Community Center, Wari, Dhaka.\n\nView Invitation Details:\n${currentUrl}`;
+    const currentUrl = window.location.origin + window.location.pathname;
+    const title = 'Wedding Card of Rimi and Joy';
+    const text = `💍 Wedding Card of Rimi and Joy\n\nYou are cordially invited to celebrate the wedding ceremony of Joy & Rimi on Friday, 11 December 2026 at 12:00 PM at Shanai Community Center, Wari, Dhaka.\n\nOpen Wedding Card:\n${currentUrl}`;
     return { title, text, currentUrl };
   };
+
+  // Clean URL path in browser address bar (Masks raw onrender link behind clean name)
+  try {
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, 'Wedding Card of Rimi and Joy', '/wedding-card-of-Rimi-and-joy');
+    }
+  } catch (e) {}
 
   // 1. WhatsApp Share
   if (whatsappBtn) {
@@ -142,11 +146,11 @@ function initShareHandlers() {
   if (messengerBtn) {
     messengerBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const { currentUrl } = getShareData();
+      const { title, text, currentUrl } = getShareData();
       if (navigator.share) {
         navigator.share({
-          title: 'The Wedding of Joy & Rimi',
-          text: `You are cordially invited to celebrate the wedding ceremony of Joy & Rimi on Friday, 11 December 2026 at 12:00 PM at Shanai Community Center, Wari, Dhaka.`,
+          title: title,
+          text: text,
           url: currentUrl
         }).catch(() => {});
       } else {
@@ -168,25 +172,38 @@ function initShareHandlers() {
             text: text,
             url: currentUrl
           });
-        } catch (err) {
-          // User closed share dialog, no error needed
-        }
+        } catch (err) {}
       } else {
-        // Fallback for desktops: copy link directly and show toast
         fallbackCopy(currentUrl);
         showToast('Link copied! You can now paste and send it on Imo or any app.');
       }
     });
   }
 
-  // 4. Copy Link Button
+  // 4. Copy Link Button (Copies with Wedding Card title hyperlink)
   if (copyBtn) {
-    copyBtn.addEventListener('click', (e) => {
+    copyBtn.addEventListener('click', async (e) => {
       e.preventDefault();
-      const { currentUrl } = getShareData();
+      const { title, currentUrl } = getShareData();
+
+      if (navigator.clipboard && window.ClipboardItem) {
+        try {
+          const textBlob = new Blob([currentUrl], { type: 'text/plain' });
+          const htmlBlob = new Blob([`<a href="${currentUrl}">${title}</a>`], { type: 'text/html' });
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'text/plain': textBlob,
+              'text/html': htmlBlob
+            })
+          ]);
+          showToast('Wedding Card of Rimi and Joy link copied!');
+          return;
+        } catch (err) {}
+      }
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(currentUrl)
-          .then(() => showToast('Invitation link copied to clipboard!'))
+          .then(() => showToast('Wedding Card of Rimi and Joy link copied!'))
           .catch(() => fallbackCopy(currentUrl));
       } else {
         fallbackCopy(currentUrl);
@@ -201,103 +218,10 @@ function initShareHandlers() {
     tempInput.select();
     try {
       document.execCommand('copy');
-      showToast('Invitation link copied to clipboard!');
+      showToast('Wedding Card of Rimi and Joy link copied!');
     } catch (err) {
       showToast('Could not copy link');
     }
     document.body.removeChild(tempInput);
   }
-}
-
-/* ==========================================
-   Soft Ambient Wedding Melody (Web Audio API)
-   ========================================== */
-function initMusicPlayer() {
-  const musicBtn = document.getElementById('music-toggle');
-  if (!musicBtn) return;
-
-  let audioCtx = null;
-  let isPlaying = false;
-  let timeoutId = null;
-
-  // Gentle acoustic bell/piano harmony frequencies (C major / G / Am / F peaceful progression)
-  const notes = [
-    // G3, B3, D4, G4, A4, B4, D5, E5, G5
-    196.00, 246.94, 293.66, 392.00, 440.00, 493.88, 587.33, 659.25, 783.99
-  ];
-
-  // Sequence of sweet, gentle wedding arpeggios
-  const melodyPattern = [
-    { note: 293.66, duration: 1.2 }, // D4
-    { note: 392.00, duration: 1.2 }, // G4
-    { note: 440.00, duration: 1.2 }, // A4
-    { note: 493.88, duration: 1.8 }, // B4
-    { note: 440.00, duration: 1.0 }, // A4
-    { note: 392.00, duration: 1.4 }, // G4
-    { note: 329.63, duration: 1.4 }, // E4
-    { note: 293.66, duration: 2.2 }, // D4
-    { note: 246.94, duration: 1.2 }, // B3
-    { note: 293.66, duration: 1.2 }, // D4
-    { note: 392.00, duration: 2.5 }  // G4
-  ];
-
-  let currentStep = 0;
-
-  function playTone(freq, duration) {
-    if (!audioCtx || !isPlaying) return;
-
-    try {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      // Soft warm sine + subtle overtone
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-      // Gentle bell envelope
-      gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start();
-      osc.stop(audioCtx.currentTime + duration);
-    } catch (e) {
-      console.warn(e);
-    }
-  }
-
-  function loopMelody() {
-    if (!isPlaying) return;
-    const step = melodyPattern[currentStep];
-    playTone(step.note, step.duration);
-
-    currentStep = (currentStep + 1) % melodyPattern.length;
-    timeoutId = setTimeout(loopMelody, step.duration * 750);
-  }
-
-  musicBtn.addEventListener('click', () => {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-
-    if (!isPlaying) {
-      isPlaying = true;
-      musicBtn.classList.add('playing');
-      musicBtn.setAttribute('title', 'Pause Music');
-      currentStep = 0;
-      loopMelody();
-    } else {
-      isPlaying = false;
-      musicBtn.classList.remove('playing');
-      musicBtn.setAttribute('title', 'Play Music');
-      if (timeoutId) clearTimeout(timeoutId);
-    }
-  });
 }

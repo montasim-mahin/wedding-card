@@ -475,34 +475,30 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Floating Music Player Toggle */
-.music-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: #ffffff;
+/* Official Wedding Card Link Badge Box */
+.wedding-card-badge-box {
+  background: var(--accent-blue-pale);
+  border: 1.5px dashed var(--accent-blue-light);
+  border-radius: 16px;
+  padding: 12px 18px;
+  max-width: 360px;
+  margin: 0 auto 18px auto;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(25, 75, 120, 0.04);
+}
+
+.wedding-card-badge-label {
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
   color: var(--accent-blue);
-  border: 1.5px solid var(--card-border);
-  box-shadow: 0 4px 16px rgba(25, 75, 120, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 50;
-  transition: all 0.25s ease;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
 }
 
-.music-toggle.playing {
-  animation: pulseMusic 2s infinite;
-  background: var(--accent-blue);
-  color: #ffffff;
-}
-
-@keyframes pulseMusic {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 112, 173, 0.4); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(37, 112, 173, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 112, 173, 0); }
+.wedding-card-badge-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-navy);
 }
