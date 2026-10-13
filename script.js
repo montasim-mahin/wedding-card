@@ -120,15 +120,15 @@ function initShareHandlers() {
 
   const getShareData = () => {
     const currentUrl = window.location.origin + window.location.pathname;
-    const title = 'Wedding Card of Rimi and Joy';
-    const text = `💍 Wedding Card of Rimi and Joy\n\nYou are cordially invited to celebrate the wedding ceremony of Joy & Rimi on Friday, 11 December 2026 at 12:00 PM at Shanai Community Center, Wari, Dhaka.\n\nOpen Wedding Card:\n${currentUrl}`;
+    const title = 'Wedding Card of Rimi & Joy';
+    const text = `${title}\n${currentUrl}`;
     return { title, text, currentUrl };
   };
 
   // Clean URL path in browser address bar (Masks raw onrender link behind clean name)
   try {
     if (window.history && window.history.replaceState) {
-      window.history.replaceState(null, 'Wedding Card of Rimi and Joy', '/wedding-card-of-Rimi-and-joy');
+      window.history.replaceState(null, 'Wedding Card of Rimi & Joy', '/wedding-card-of-Rimi-and-joy');
     }
   } catch (e) {}
 
@@ -196,14 +196,14 @@ function initShareHandlers() {
               'text/html': htmlBlob
             })
           ]);
-          showToast('Wedding Card of Rimi and Joy link copied!');
+          showToast('Wedding Card of Rimi & Joy link copied!');
           return;
         } catch (err) {}
       }
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(currentUrl)
-          .then(() => showToast('Wedding Card of Rimi and Joy link copied!'))
+          .then(() => showToast('Wedding Card of Rimi & Joy link copied!'))
           .catch(() => fallbackCopy(currentUrl));
       } else {
         fallbackCopy(currentUrl);
