@@ -119,18 +119,14 @@ function initShareHandlers() {
   };
 
   const getShareData = () => {
-    const currentUrl = window.location.origin + window.location.pathname;
+    // Always use the real working root URL
+    const currentUrl = window.location.protocol === 'file:' 
+      ? 'https://wedding-card-cbzo.onrender.com' 
+      : (window.location.origin || 'https://wedding-card-cbzo.onrender.com');
     const title = 'Wedding Card of Rimi & Joy';
     const text = `${title}\n${currentUrl}`;
     return { title, text, currentUrl };
   };
-
-  // Clean URL path in browser address bar (Masks raw onrender link behind clean name)
-  try {
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState(null, 'Wedding Card of Rimi & Joy', '/wedding-card-of-Rimi-and-joy');
-    }
-  } catch (e) {}
 
   // 1. WhatsApp Share
   if (whatsappBtn) {
@@ -180,30 +176,15 @@ function initShareHandlers() {
     });
   }
 
-  // 4. Copy Link Button (Copies with Wedding Card title hyperlink)
+  // 4. Copy Link Button (Reliably copies working link on all devices)
   if (copyBtn) {
     copyBtn.addEventListener('click', async (e) => {
       e.preventDefault();
-      const { title, currentUrl } = getShareData();
-
-      if (navigator.clipboard && window.ClipboardItem) {
-        try {
-          const textBlob = new Blob([currentUrl], { type: 'text/plain' });
-          const htmlBlob = new Blob([`<a href="${currentUrl}">${title}</a>`], { type: 'text/html' });
-          await navigator.clipboard.write([
-            new ClipboardItem({
-              'text/plain': textBlob,
-              'text/html': htmlBlob
-            })
-          ]);
-          showToast('Wedding Card of Rimi & Joy link copied!');
-          return;
-        } catch (err) {}
-      }
+      const { currentUrl } = getShareData();
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(currentUrl)
-          .then(() => showToast('Wedding Card of Rimi & Joy link copied!'))
+          .then(() => showToast('Link copied! Paste to send on WhatsApp or any app.'))
           .catch(() => fallbackCopy(currentUrl));
       } else {
         fallbackCopy(currentUrl);
@@ -212,13 +193,16 @@ function initShareHandlers() {
   }
 
   function fallbackCopy(text) {
-    const tempInput = document.createElement('input');
+    const tempInput = document.createElement('textarea');
     tempInput.value = text;
+    tempInput.style.position = 'fixed';
+    tempInput.style.left = '-9999px';
     document.body.appendChild(tempInput);
+    tempInput.focus();
     tempInput.select();
     try {
       document.execCommand('copy');
-      showToast('Wedding Card of Rimi and Joy link copied!');
+      showToast('Link copied! Paste to send on WhatsApp or any app.');
     } catch (err) {
       showToast('Could not copy link');
     }
